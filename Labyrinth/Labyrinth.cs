@@ -24,6 +24,8 @@ namespace Labyrinth
             {
                 throw new ArgumentException("Labyrinth must have at least one starting position marked with x");
             }
+            Width = _tiles.GetLength(0);
+            Height = _tiles.GetLength(1);
         }
 
         /// <summary>
@@ -68,6 +70,13 @@ namespace Labyrinth
         private readonly Tile[,] _tiles;
         private readonly (int, int) _startPosition;
         
-        private Tile GetTile(int x, int y) => _tiles[x, y];
+        private Tile GetTile(int x, int y)
+        {
+            if (x < 0 || x >= Width || y < 0 || y >= Height)
+            {
+                return Outside.Singleton;
+            }
+            return _tiles[x, y];
+        }
     }
 }
