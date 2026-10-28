@@ -82,7 +82,8 @@ public class LabyrinthCrawlerTest
                                                            """));
         
         ICrawler test = laby.NewCrawler();
-        test.Direction.TurnLeft();
+        ((Crawler) test).TurnLeft();
+        ((Crawler) test).UpdateFacingTile(laby.GetCrawlerFacingTile(test));
         
         
         Assert.That(test.FacingTile, Is.TypeOf<Outside>());

@@ -6,7 +6,7 @@ namespace Labyrinth.Crawl
     /// <summary>
     /// Crawler moving through the labyrinth.
     /// </summary>
-    internal sealed class Crawler(int startX, int startY, Tile facingTile) : ICrawler
+    public class Crawler(int startX, int startY, Tile facingTile) : ICrawler
     {
         public int X { get; private set; } = startX;
 
@@ -17,5 +17,20 @@ namespace Labyrinth.Crawl
         public Tile FacingTile { get; set; } = facingTile;
 
         public Inventory Walk() => throw new NotImplementedException();
+        
+        public void TurnLeft()
+        {
+            Direction.TurnLeft();
+        }
+
+        public void TurnRight()
+        {
+            Direction.TurnRight();
+        }
+        
+        public void UpdateFacingTile(Tile tile)
+        {
+            FacingTile = tile;
+        }
     }
 }
