@@ -12,7 +12,7 @@ namespace Labyrinth.Crawl
 
         public int Y { get; private set; } = startY;
 
-        public Direction Direction => Direction.North;
+        public Direction Direction {get; set; } = Direction.North;
 
         public Tile FacingTile { get; set; } = facingTile;
 
