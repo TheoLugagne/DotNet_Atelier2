@@ -28,6 +28,12 @@ namespace Labyrinth.Crawl
             Direction.TurnRight();
         }
         
+        public void TurnAround()
+        {
+            Direction.TurnRight();
+            Direction.TurnRight();
+        }
+        
         public void UpdateFacingTile(Tile tile)
         {
             FacingTile = tile;
