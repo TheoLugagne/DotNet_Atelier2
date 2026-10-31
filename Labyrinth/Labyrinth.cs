@@ -65,7 +65,7 @@ namespace Labyrinth
             return res.ToString();
         }
 
-        public ICrawler NewCrawler() => new Crawler(_startPosition.Item1, _startPosition.Item2, GetTile(_startPosition.Item1, _startPosition.Item2 + Direction.North.DeltaY));
+        public ICrawler NewCrawler() => new Crawler(this, _startPosition.Item1, _startPosition.Item2, GetTile(_startPosition.Item1, _startPosition.Item2 + Direction.North.DeltaY));
         
         private readonly Tile[,] _tiles;
         private readonly (int, int) _startPosition;
@@ -77,12 +77,6 @@ namespace Labyrinth
                 return Outside.Singleton;
             }
             return _tiles[x, y];
-        }
-        
-        public Tile GetCrawlerFacingTile(ICrawler crawler)
-        {
-            var (x, y) = (crawler.X + crawler.Direction.DeltaX, crawler.Y + crawler.Direction.DeltaY);
-            return GetTile(x, y);
         }
     }
 }

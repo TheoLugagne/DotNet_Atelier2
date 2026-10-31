@@ -1,5 +1,6 @@
 ﻿using Labyrinth.Build;
 using Labyrinth.Crawl;
+using Labyrinth.Items;
 using Labyrinth.Tiles;
 
 namespace LabyrinthTest.Crawl;
@@ -83,7 +84,6 @@ public class LabyrinthCrawlerTest
         
         ICrawler test = laby.NewCrawler();
         ((Crawler) test).TurnLeft();
-        ((Crawler) test).UpdateFacingTile(laby.GetCrawlerFacingTile(test));
         
         
         Assert.That(test.FacingTile, Is.TypeOf<Outside>());
@@ -100,7 +100,6 @@ public class LabyrinthCrawlerTest
         
         ICrawler test = laby.NewCrawler();
         ((Crawler) test).TurnRight();
-        ((Crawler) test).UpdateFacingTile(laby.GetCrawlerFacingTile(test));
         
         
         Assert.That(test.FacingTile, Is.TypeOf<Outside>());
@@ -117,7 +116,6 @@ public class LabyrinthCrawlerTest
         
         ICrawler test = laby.NewCrawler();
         ((Crawler) test).TurnAround();
-        ((Crawler) test).UpdateFacingTile(laby.GetCrawlerFacingTile(test));
         
         
         Assert.That(test.FacingTile, Is.TypeOf<Outside>());
@@ -128,13 +126,39 @@ public class LabyrinthCrawlerTest
     [Test]
     public void TurnLeftFacesWestTile()
     {
-        Assert.That(false);
+        var laby = new Labyrinth.Labyrinth(new AsciiParser("""
+                                                           +--+
+                                                           |  |
+                                                           |x |
+                                                           +--+
+                                                           """));
+        
+        ICrawler test = laby.NewCrawler();
+        ((Crawler) test).TurnLeft();
+        
+        Assert.That(test.FacingTile, Is.TypeOf<Wall>());
     }
 
     [Test]
     public void WalkReturnsInventoryAndChangesPositionAndFacingTile()
     {
-        Assert.That(false);
+        var laby = new Labyrinth.Labyrinth(new AsciiParser("""
+                                                           +--+
+                                                           |  |
+                                                           |x |
+                                                           +--+
+                                                           """));
+        
+        var test = laby.NewCrawler();
+        var inventory = test.Walk();
+        
+        using var all = Assert.EnterMultipleScope();
+        
+        Assert.That(inventory, Is.InstanceOf<Inventory>());
+        Assert.That(test.X, Is.EqualTo(1));
+        Assert.That(test.Y, Is.EqualTo(1));
+        Assert.That(test.Direction, Is.EqualTo(Direction.North));
+        Assert.That(test.FacingTile, Is.TypeOf<Wall>());
     }
 
     [Test]
