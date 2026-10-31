@@ -16,6 +16,8 @@ namespace Labyrinth.Crawl
         public Direction Direction {get; set; } = Direction.North;
 
         public Tile FacingTile { get; set; } = facingTile;
+        
+        public MyInventory Inventory { get; } = new MyInventory();
 
         public Inventory Walk()
         {
@@ -51,5 +53,10 @@ namespace Labyrinth.Crawl
         }
         
         private (int, int) GetFacingTileCoordinates() => (X + Direction.DeltaX, Y + Direction.DeltaY);
+        
+        public void pickUp(Inventory inventory)
+        {
+            Inventory.MoveItemFrom(inventory);
+        }
     }
 }
